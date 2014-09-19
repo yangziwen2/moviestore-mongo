@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import net.yangziwen.moviestore.pojo.MovieInfo;
+import net.yangziwen.moviestore.pojo.Website;
 import net.yangziwen.moviestore.repository.MovieInfoRepository;
 import net.yangziwen.moviestore.service.MovieInfoService;
 import net.yangziwen.moviestore.util.Page;
@@ -71,6 +72,26 @@ public class MovieInfoServiceImpl implements MovieInfoService {
 		
 		Query query = new Query(criteria).with(new PageRequest(start / limit, limit, new Sort(Direction.DESC, "_id")));
 		return new Page<MovieInfo>(start, limit, Long.valueOf(movieInfoRepository.count(query)).intValue(), movieInfoRepository.findAll(query));
+	}
+	
+	@Override
+	public List<String> getMovieInfoYearListByWebsite(Website website) {
+		return movieInfoRepository.getYearListByWebsiteName(website.getName());
+	}
+	
+	@Override
+	public List<String> getMovieInfoAreaListByWebsite(Website website) {
+		return movieInfoRepository.getAreaListByWebsiteName(website.getName());
+	}
+	
+	@Override
+	public List<String> getCategoryListByWebsite(Website website) {
+		return movieInfoRepository.getCategoryListByWebsiteName(website.getName());
+	}
+	
+	@Override
+	public List<String> getMovieInfoSubcategoryListByWebsiteAndCategory(Website website, String category) {
+		return movieInfoRepository.getSubcategoryListByWebsiteNameAndCategory(website.getName(), category);
 	}
 
 }

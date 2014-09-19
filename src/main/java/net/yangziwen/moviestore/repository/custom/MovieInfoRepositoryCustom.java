@@ -12,4 +12,12 @@ public interface MovieInfoRepositoryCustom {
 
 	long count(Query query);
 
+	List<String> getYearListByWebsiteName(String websiteId);
+
+	List<String> getAreaListByWebsiteName(String websiteName);
+
+	List<String> getCategoryListByWebsiteName(String websiteName);
+
+	List<String> getSubcategoryListByWebsiteNameAndCategory(String websiteName, String category);
+
 }

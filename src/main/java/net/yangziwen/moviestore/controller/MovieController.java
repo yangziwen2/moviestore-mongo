@@ -1,5 +1,6 @@
 package net.yangziwen.moviestore.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import net.yangziwen.moviestore.pojo.Website;
@@ -56,8 +57,11 @@ public class MovieController {
 			.addAttribute("actor", actor)
 		;
 		model
-			.addAttribute("page", movieInfoService.getMovieInfoPaginateResult(start, limit, param))
 			.addAttribute("website", website)
+			.addAttribute("page", movieInfoService.getMovieInfoPaginateResult(start, limit, param))
+			.addAttribute("yearList", movieInfoService.getMovieInfoYearListByWebsite(website))
+			.addAttribute("areaList", movieInfoService.getMovieInfoAreaListByWebsite(website))
+			.addAttribute("categoryList", movieInfoService.getCategoryListByWebsite(website))
 		;
 		return "movie/list";
 	}
@@ -67,6 +71,12 @@ public class MovieController {
 	public Map<String, Object> listSubcategory(
 			@PathVariable("websiteName") String websiteName,
 			@RequestParam("category") String category) {
-		return new ModelMap();
+		Website website = websiteService.getWebsiteByName(websiteName);
+		if(website == null) {
+			return new ModelMap().addAttribute("success", false).addAttribute("message", "网站信息不存在!");
+		}
+		List<String> subcategoryList = movieInfoService.getMovieInfoSubcategoryListByWebsiteAndCategory(website, category);
+		return new ModelMap().addAttribute("success", true).addAttribute("subcategoryList", subcategoryList);
 	}
+	
 }
