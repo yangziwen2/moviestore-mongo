@@ -7,8 +7,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface WebsiteRepository extends MongoRepository<Website, String>, WebsiteRepositoryCustom {
 	
-	public Website getById(String id);
-	
 	public Website getByName(String name);
 	
 }

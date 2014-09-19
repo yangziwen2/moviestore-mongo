@@ -2,6 +2,7 @@ package net.yangziwen.moviestore.controller;
 
 import java.util.Map;
 
+import net.yangziwen.moviestore.pojo.Website;
 import net.yangziwen.moviestore.service.MovieInfoService;
 import net.yangziwen.moviestore.service.WebsiteService;
 import net.yangziwen.moviestore.util.CommonConstant;
@@ -44,6 +45,7 @@ public class MovieController {
 			@RequestParam(required = false)
 			String actor,
 			Model model) {
+		Website website = websiteService.getWebsiteByName(websiteName);
 		return "movie/list";
 	}
 	

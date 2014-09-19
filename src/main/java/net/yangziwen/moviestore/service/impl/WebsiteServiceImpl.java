@@ -19,7 +19,7 @@ public class WebsiteServiceImpl implements WebsiteService {
 
 	@Override
 	public Website getWebsiteById(String id) {
-		return websiteRepository.getById(id);
+		return websiteRepository.findOne(id);
 	}
 	
 	@Override

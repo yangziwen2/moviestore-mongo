@@ -19,7 +19,7 @@ public class WebsiteRepositoryImpl implements WebsiteRepositoryCustom {
 		if (query == null) {
 			return Collections.emptyList();
 		}
-		return mongoTemplate.find(query, Website.class, "website");
+		return mongoTemplate.find(query, Website.class);
 	}
 
 }

@@ -1,12 +1,14 @@
 package net.yangziwen.moviestore.pojo;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection="movieInfo")
 public class MovieInfo extends AbstractEntity {
 	
 	@Id
 	private String id;
-	private String websiteId;
+	private String websiteName;
 	private Long movieId;
 	private String title;
 	private String actors;
@@ -26,12 +28,12 @@ public class MovieInfo extends AbstractEntity {
 		this.id = id;
 	}
 
-	public String getWebsiteId() {
-		return websiteId;
+	public String getWebsiteName() {
+		return websiteName;
 	}
 
-	public void setWebsiteId(String websiteId) {
-		this.websiteId = websiteId;
+	public void setWebsiteName(String websiteName) {
+		this.websiteName = websiteName;
 	}
 
 	public Long getMovieId() {

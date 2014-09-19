@@ -1,7 +1,9 @@
 package net.yangziwen.moviestore.pojo;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection = "website")
 public class Website extends AbstractEntity {
 
 	@Id
