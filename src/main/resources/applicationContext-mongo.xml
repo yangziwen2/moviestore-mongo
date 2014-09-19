@@ -13,12 +13,12 @@
     
 	<mongo:mongo id="mongo" host="${mongo.host}" port="${mongo.port}"/>
 	
-	<mongo:db-factory id="mongoDbFactory" dbname="bookshelf" mongo-ref="mongo"/>
+	<mongo:db-factory id="mongoDbFactory" dbname="moviestore" mongo-ref="mongo"/>
 	
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
   		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
 	</bean>
 	
-	<context:component-scan base-package="net.yangziwen.moviestore.dao"></context:component-scan>
+	<mongo:repositories base-package="net.yangziwen.moviestore.repository" />
 	
 </beans>

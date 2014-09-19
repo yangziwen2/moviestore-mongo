@@ -1,30 +1,34 @@
 package net.yangziwen.moviestore.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
-import net.yangziwen.moviestore.dao.WebsiteDao;
 import net.yangziwen.moviestore.pojo.Website;
-import net.yangziwen.moviestore.service.IWebsiteService;
+import net.yangziwen.moviestore.repository.WebsiteRepository;
+import net.yangziwen.moviestore.service.WebsiteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 @Service
-public class WebsiteServiceImpl implements IWebsiteService {
+public class WebsiteServiceImpl implements WebsiteService {
 	
 	@Autowired
-	private WebsiteDao websiteDao;
+	private WebsiteRepository websiteRepository;
 
+	@Override
 	public Website getWebsiteById(String id) {
-		return null;
+		return websiteRepository.getById(id);
 	}
 	
+	@Override
 	public Website getWebsiteByName(String name) {
-		return null;
+		return websiteRepository.getByName(name);
 	}
 	
-	public List<Website> getWebsiteListResult(int start, int limit, Map<String, Object> param) {
-		return null;
+	@Override
+	public List<Website> getWebsiteListResult(Pageable pageable) {
+		return websiteRepository.findAll(new Query().with(pageable));
 	}
 }

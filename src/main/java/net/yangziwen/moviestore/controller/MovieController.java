@@ -2,8 +2,8 @@ package net.yangziwen.moviestore.controller;
 
 import java.util.Map;
 
-import net.yangziwen.moviestore.service.IMovieInfoService;
-import net.yangziwen.moviestore.service.IWebsiteService;
+import net.yangziwen.moviestore.service.MovieInfoService;
+import net.yangziwen.moviestore.service.WebsiteService;
 import net.yangziwen.moviestore.util.CommonConstant;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MovieController {
 	
 	@Autowired
-	private IWebsiteService websiteService;
+	private WebsiteService websiteService;
 	@Autowired
-	private IMovieInfoService movieInfoService;
+	private MovieInfoService movieInfoService;
 
 	@RequestMapping("/{websiteName}/list")
 	public String list(

@@ -1,7 +1,10 @@
 package net.yangziwen.moviestore.pojo;
 
-public class MovieInfo {
+import org.springframework.data.annotation.Id;
+
+public class MovieInfo extends AbstractEntity {
 	
+	@Id
 	private String id;
 	private String websiteId;
 	private Long movieId;

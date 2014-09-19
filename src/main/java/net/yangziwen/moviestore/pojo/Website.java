@@ -1,7 +1,10 @@
 package net.yangziwen.moviestore.pojo;
 
+import org.springframework.data.annotation.Id;
+
 public class Website extends AbstractEntity {
 
+	@Id
 	private String id;
 	private String name;
 	private String displayName;
@@ -9,6 +12,7 @@ public class Website extends AbstractEntity {
 	private String movieUrlTemplate;
 	private String testProxyUrl;
 	private Boolean mockPhotoReferer;
+	private Integer rank;
 	
 	public Website() {}
 	
@@ -54,6 +58,11 @@ public class Website extends AbstractEntity {
 	public void setMockPhotoReferer(Boolean mockPhotoReferer) {
 		this.mockPhotoReferer = mockPhotoReferer;
 	}
-	
+	public Integer getRank() {
+		return rank;
+	}
+	public void setRank(Integer rank) {
+		this.rank = rank;
+	}
 	
 }
