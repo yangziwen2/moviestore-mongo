@@ -46,6 +46,19 @@ public class MovieController {
 			String actor,
 			Model model) {
 		Website website = websiteService.getWebsiteByName(websiteName);
+		Map<String, Object> param = new ModelMap()
+			.addAttribute("websiteName", websiteName)
+			.addAttribute("year", year)
+			.addAttribute("area", area)
+			.addAttribute("title", title)
+			.addAttribute("category", category)
+			.addAttribute("subcategory", subcategory)
+			.addAttribute("actor", actor)
+		;
+		model
+			.addAttribute("page", movieInfoService.getMovieInfoPaginateResult(start, limit, param))
+			.addAttribute("website", website)
+		;
 		return "movie/list";
 	}
 	

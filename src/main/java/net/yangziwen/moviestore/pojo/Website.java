@@ -5,6 +5,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "website")
 public class Website extends AbstractEntity {
+	
+	private static final String MOVIE_ID_PLACEHOLDER = "${movieId}";
 
 	@Id
 	private String id;
@@ -65,6 +67,10 @@ public class Website extends AbstractEntity {
 	}
 	public void setRank(Integer rank) {
 		this.rank = rank;
+	}
+	
+	public String getMovieUrl(Object movieId) {
+		return movieUrlTemplate.replace(MOVIE_ID_PLACEHOLDER, String.valueOf(movieId));
 	}
 	
 }
