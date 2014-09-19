@@ -15,7 +15,6 @@ import net.yangziwen.moviestore.pojo.MovieInfo;
 
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Transformer;
-import org.aspectj.apache.bcel.classfile.Utility.ResultHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
