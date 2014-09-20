@@ -9,7 +9,7 @@
         http://www.springframework.org/schema/data/mongo http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd
     ">
     
-    <context:property-placeholder location="classpath:mongo.properties"/>
+    <context:property-placeholder location="classpath:mongo-jd.properties"/>
     
 	<mongo:mongo id="mongo" host="${mongo.host}" port="${mongo.port}">
 		<mongo:options 
