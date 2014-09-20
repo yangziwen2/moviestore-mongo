@@ -6,3 +6,4 @@ db/
 .classpath
 .settings/
 .mymetadata
+src/main/resources/data/
