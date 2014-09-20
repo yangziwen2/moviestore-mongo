@@ -17,21 +17,23 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.Transformer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
 import org.springframework.data.mongodb.core.query.Query;
 
 public class MovieInfoRepositoryImpl implements MovieInfoRepositoryCustom {
 	
 	@Autowired
-	private MongoTemplate mongoTemplate;
+	private MongoOperations mongoOperations;
+	
+	private class ResultHolder { String result; }
 	
 	@Override
 	public List<MovieInfo> findAll(Query query) {
 		if (query == null) {
 			return Collections.emptyList();
 		}
-		return mongoTemplate.find(query, MovieInfo.class);
+		return mongoOperations.find(query, MovieInfo.class);
 	}
 	
 	@Override
@@ -39,7 +41,7 @@ public class MovieInfoRepositoryImpl implements MovieInfoRepositoryCustom {
 		if(query == null) {
 			return 0;
 		}
-		return mongoTemplate.count(query, MovieInfo.class);
+		return mongoOperations.count(query, MovieInfo.class);
 	}
 
 	@Override
@@ -51,7 +53,7 @@ public class MovieInfoRepositoryImpl implements MovieInfoRepositoryCustom {
 			project().and("result").previousOperation(),
 			sort(Direction.DESC, "result")
 		);
-		return transformToStringList(mongoTemplate.aggregate(aggregation, ResultHolder.class).getMappedResults());
+		return transformToStringList(mongoOperations.aggregate(aggregation, ResultHolder.class).getMappedResults());
 	}
 	
 	@Override
@@ -63,7 +65,7 @@ public class MovieInfoRepositoryImpl implements MovieInfoRepositoryCustom {
 			project().and("area").as("result"),
 			project().and("result").previousOperation()
 		);
-		return transformToStringList(mongoTemplate.aggregate(aggregation, ResultHolder.class).getMappedResults());
+		return transformToStringList(mongoOperations.aggregate(aggregation, ResultHolder.class).getMappedResults());
 	}
 	
 	@Override
@@ -75,7 +77,7 @@ public class MovieInfoRepositoryImpl implements MovieInfoRepositoryCustom {
 			project().and("category").as("result"),
 			project().and("result").previousOperation()
 		);
-		return transformToStringList(mongoTemplate.aggregate(aggregation, ResultHolder.class).getMappedResults());
+		return transformToStringList(mongoOperations.aggregate(aggregation, ResultHolder.class).getMappedResults());
 	}
 	
 	@Override
@@ -87,7 +89,7 @@ public class MovieInfoRepositoryImpl implements MovieInfoRepositoryCustom {
 			project().and("subcategory").as("result"),
 			project().and("result").previousOperation()
 		);
-		return transformToStringList(mongoTemplate.aggregate(aggregation, ResultHolder.class).getMappedResults());
+		return transformToStringList(mongoOperations.aggregate(aggregation, ResultHolder.class).getMappedResults());
 	}
 	
 	private List<String> transformToStringList(List<ResultHolder> holderList) {
@@ -96,13 +98,6 @@ public class MovieInfoRepositoryImpl implements MovieInfoRepositoryCustom {
 				return holder.result;
 			}
 		}));
-	}
-	
-	public static class ResultHolder {
-		private String result;
-		public void setResult(String result) {
-			this.result = result;
-		}
 	}
 	
 }
