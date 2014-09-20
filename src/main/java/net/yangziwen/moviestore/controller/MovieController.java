@@ -1,5 +1,6 @@
 package net.yangziwen.moviestore.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,8 @@ import net.yangziwen.moviestore.service.MovieInfoService;
 import net.yangziwen.moviestore.service.WebsiteService;
 import net.yangziwen.moviestore.util.CommonConstant;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,14 +52,15 @@ public class MovieController {
 		Website website = websiteService.getWebsiteByName(websiteName);
 		Map<String, Object> param = new ModelMap()
 			.addAttribute("websiteName", websiteName)
-			.addAttribute("year", year)
-			.addAttribute("area", area)
-			.addAttribute("title", title)
-			.addAttribute("category", category)
-			.addAttribute("subcategory", subcategory)
-			.addAttribute("actor", actor)
+			.addAttribute("year", decodeBase64Param(year))
+			.addAttribute("area", decodeBase64Param(area))
+			.addAttribute("title", decodeBase64Param(title))
+			.addAttribute("category", decodeBase64Param(category))
+			.addAttribute("subcategory", decodeBase64Param(subcategory))
+			.addAttribute("actor", decodeBase64Param(actor))
 		;
 		model
+			.addAttribute("decodedParam", param)
 			.addAttribute("website", website)
 			.addAttribute("page", movieInfoService.getMovieInfoPaginateResult(start, limit, param))
 			.addAttribute("yearList", movieInfoService.getMovieInfoYearListByWebsite(website))
@@ -64,6 +68,18 @@ public class MovieController {
 			.addAttribute("categoryList", movieInfoService.getCategoryListByWebsite(website))
 		;
 		return "movie/list";
+	}
+	
+	private String decodeBase64Param(String base64Param) {
+		if(StringUtils.isBlank(base64Param)) {
+			return null;
+		}
+		try {
+			return StringUtils.toString(Base64.decodeBase64(base64Param), "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	@ResponseBody

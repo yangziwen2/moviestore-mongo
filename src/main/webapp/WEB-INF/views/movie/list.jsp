@@ -83,7 +83,7 @@ img {
 							</label>
 						</td>
 						<td class="input-wrapper">	
-							<input id="J_title" type="text" class="input-medium" value="${param.title}" />
+							<input id="J_title" type="text" class="input-medium" value="${decodedParam.title}" />
 						</td>
 						<td class="label-wrapper">
 							<label for="J_actor">
@@ -91,7 +91,7 @@ img {
 							</label>
 						</td>
 						<td class="input-wrapper">	
-							<input id="J_actor" type="text" class="input-medium" value="${param.actor}" />
+							<input id="J_actor" type="text" class="input-medium" value="${decodedParam.actor}" />
 						</td>
 					</tr>
 					<tr>
@@ -104,7 +104,7 @@ img {
 							<select id="J_category" class="input-medium">
 								<option value="">全部</option>
 								<c:forEach items="${categoryList}" var="category">
-									<option value="${category}" <c:if test="${param.category == category}">selected</c:if>>
+									<option value="${category}" <c:if test="${decodedParam.category == category}">selected</c:if>>
 										${category}
 									</option>
 								</c:forEach>
@@ -131,7 +131,7 @@ img {
 							<select id="J_area" class="input-medium">
 								<option value="">全部</option>
 								<c:forEach items="${areaList}" var="area">
-									<option value="${area}" <c:if test="${param.area == area}">selected</c:if>>
+									<option value="${area}" <c:if test="${decodedParam.area == area}">selected</c:if>>
 										${area}
 									</option>
 								</c:forEach>
@@ -146,7 +146,7 @@ img {
 							<select id="J_year" class="input-medium">
 								<option value="">全部</option>
 								<c:forEach items="${yearList}" var="year">
-									<option value="${year}" <c:if test="${param.year == year}">selected</c:if>>
+									<option value="${year}" <c:if test="${decodedParam.year == year}">selected</c:if>>
 										${year}
 									</option>
 								</c:forEach>
@@ -222,6 +222,7 @@ img {
 <%@ include file="../include/includeJs.jsp" %>
 <script type="text/javascript" src="${ctx_path}/js/bootstrap/bootstrapPageBar.js"></script>
 <script type="text/javascript" src="${ctx_path}/js/jquery/jquery.lazyload.js"></script>
+<script type="text/javascript" src="${ctx_path}/js/utils/base64.js"></script>
 <script type="text/javascript">
 $(function(){
 	initPageBar();
@@ -300,7 +301,7 @@ function refreshSubcategorySel(websiteName, category) {
 		var selected = '';
 		for(var i = 0, l = data.subcategoryList.length; i < l; i++) {
 			$subcategory.append('<option value="' + data.subcategoryList[i] + '">' + data.subcategoryList[i] + '</option>');
-			if('${param.subcategory}' == data.subcategoryList[i]) {
+			if('${decodedParam.subcategory}' == data.subcategoryList[i]) {
 				selected = data.subcategoryList[i];
 			}
 		}
@@ -318,12 +319,12 @@ function initQueryBtn() {
 function appendParams(url) {
 	var firstSep = url.indexOf('?') < 0? '?': '&';
 	return url 
-		+ firstSep +'area=' + encodeURIComponent($('#J_area').val())
-		+ '&year=' + $('#J_year').val()
-		+ '&title=' + encodeURIComponent($('#J_title').val())
-		+ '&category=' + encodeURIComponent($('#J_category').val())
-		+ '&subcategory=' + encodeURIComponent($('#J_subcategory').val())
-		+ '&actor=' + encodeURIComponent($('#J_actor').val());
+		+ firstSep +'area=' + encodeURIComponent(Base64.encode($('#J_area').val()))
+		+ '&year=' + encodeURIComponent(Base64.encode($('#J_year').val()))
+		+ '&title=' + encodeURIComponent(Base64.encode($('#J_title').val()))
+		+ '&category=' + encodeURIComponent(Base64.encode($('#J_category').val()))
+		+ '&subcategory=' + encodeURIComponent(Base64.encode($('#J_subcategory').val()))
+		+ '&actor=' + encodeURIComponent(Base64.encode($('#J_actor').val()));
 }
 
 function initClearBtn() {
