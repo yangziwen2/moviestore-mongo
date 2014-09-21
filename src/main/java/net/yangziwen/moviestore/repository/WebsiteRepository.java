@@ -1,11 +1,9 @@
 package net.yangziwen.moviestore.repository;
 
 import net.yangziwen.moviestore.pojo.Website;
-import net.yangziwen.moviestore.repository.custom.WebsiteRepositoryCustom;
+import net.yangziwen.moviestore.repository.base.MyMongoRepository;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
-
-public interface WebsiteRepository extends MongoRepository<Website, String>, WebsiteRepositoryCustom {
+public interface WebsiteRepository extends MyMongoRepository<Website, String> {
 	
 	public Website getByName(String name);
 	

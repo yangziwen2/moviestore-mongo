@@ -8,9 +8,9 @@ import org.springframework.data.mongodb.core.query.Query;
 
 public interface MovieInfoRepositoryCustom {
 
-	List<MovieInfo> findAll(Query query);
-
-	long count(Query query);
+//	List<MovieInfo> findAll(Query query);
+//
+//	long count(Query query);
 
 	List<String> getYearListByWebsiteName(String websiteId);
 

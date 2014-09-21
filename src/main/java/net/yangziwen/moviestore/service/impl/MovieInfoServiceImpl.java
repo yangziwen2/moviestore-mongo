@@ -69,9 +69,13 @@ public class MovieInfoServiceImpl implements MovieInfoService {
 		if(param.get("actor") != null) {
 			criteria.and("actors").regex(param.get("actor").toString());
 		}
-		
-		Query query = new Query(criteria).with(new PageRequest(start / limit, limit, new Sort(Direction.DESC, "_id")));
-		return new Page<MovieInfo>(start, limit, Long.valueOf(movieInfoRepository.count(query)).intValue(), movieInfoRepository.findAll(query));
+		// 拿以前的工程改过来的，所以这里需要转下page的类型
+		// 新写的话，肯定要用spring data的Page
+		org.springframework.data.domain.Page<MovieInfo> page = movieInfoRepository.findAll(
+				new Query(criteria), 
+				new PageRequest(start / limit, limit, new Sort(Direction.DESC, "_id"))
+		);
+		return new Page<MovieInfo>(start, limit, Long.valueOf(page.getTotalElements()).intValue(), page.getContent());
 	}
 	
 	@Override
