@@ -8,7 +8,6 @@ import static org.springframework.data.mongodb.core.aggregation.Aggregation.sort
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import net.yangziwen.moviestore.pojo.MovieInfo;
@@ -19,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.aggregation.TypedAggregation;
-import org.springframework.data.mongodb.core.query.Query;
 
 public class MovieInfoRepositoryImpl implements MovieInfoRepositoryCustom {
 	
@@ -27,22 +25,6 @@ public class MovieInfoRepositoryImpl implements MovieInfoRepositoryCustom {
 	private MongoOperations mongoOperations;
 	
 	private class ResultHolder { String result; }
-	
-	@Override
-	public List<MovieInfo> findAll(Query query) {
-		if (query == null) {
-			return Collections.emptyList();
-		}
-		return mongoOperations.find(query, MovieInfo.class);
-	}
-	
-	@Override
-	public long count(Query query) {
-		if(query == null) {
-			return 0;
-		}
-		return mongoOperations.count(query, MovieInfo.class);
-	}
 
 	@Override
 	public List<String> getYearListByWebsiteName(String websiteName) {

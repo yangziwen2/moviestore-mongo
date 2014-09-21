@@ -36,6 +36,7 @@
   		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
 	</bean>
 	
-	<mongo:repositories base-package="net.yangziwen.moviestore.repository" />
+	<mongo:repositories base-package="net.yangziwen.moviestore.repository"
+		factory-class="net.yangziwen.moviestore.repository.base.MyMongoRepositoryFactoryBean" />
 	
 </beans>
